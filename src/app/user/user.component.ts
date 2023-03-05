@@ -13,6 +13,8 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit() {
+    // note: whatever route the User component is initialized on ... it subscribes to the observable from the Routes module
+    // and then sets the current this.id to the params.id
     this.route.params.subscribe((params: Params) => {
       this.id = +params.id;
     });
