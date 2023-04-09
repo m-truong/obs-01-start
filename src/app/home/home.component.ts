@@ -38,11 +38,17 @@ export class HomeComponent implements OnInit, OnDestroy {
     
     const customIntervalObservable = Observable.create((observer) => {
       // seems to be the payload
-      let count = 0;
+      let count = 0; // this is the observable's payload?!
 
       // this increments the count every 1000ms
       setInterval( () => {
         observer.next(count);
+        if (count === 2)
+          observer.complete();
+        // this causes an error thrown!
+        if (count > 3) observer.error(new Error('Count is greater than 3!'))
+        // once and observer callback f(x) encounters an error --- it stops emitting values
+
         count++;
       }, 1000);
     });
@@ -52,6 +58,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this.firstObsSubscription = customIntervalObservable.subscribe( (data) => {
       console.log(data);
+    }, (errorCallback) => { // note: by handling the error (it no longer appears 'Red')
+      console.log(errorCallback);
+      alert(errorCallback.message);
+    }, () => {
+      console.log('[Entered] the Completion callback for the NgRX subscription!')
     })
   }
 
