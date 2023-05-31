@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-user',
@@ -9,7 +10,8 @@ import { ActivatedRoute, Params } from '@angular/router';
 export class UserComponent implements OnInit {
   id: number;
 
-  constructor(private route: ActivatedRoute) {
+  // after creating the user-service ~ then must provide inside the components constructor
+  constructor(private route: ActivatedRoute, private userServ: UserService) {
   }
 
   ngOnInit() {
@@ -19,4 +21,7 @@ export class UserComponent implements OnInit {
       this.id = +params.id;
     });
   }
+
+  // handler method inside the userComponent logic file that'll execute onActivate() once button IS CLICKED
+  // and it'll utilize the UserService's eventEmitter
 }
