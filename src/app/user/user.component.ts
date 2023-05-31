@@ -11,7 +11,7 @@ export class UserComponent implements OnInit {
   id: number;
 
   // after creating the user-service ~ then must provide inside the components constructor
-  constructor(private route: ActivatedRoute, private userServ: UserService) {
+  constructor(private route: ActivatedRoute, private userService: UserService) {
   }
 
   ngOnInit() {
@@ -24,4 +24,7 @@ export class UserComponent implements OnInit {
 
   // handler method inside the userComponent logic file that'll execute onActivate() once button IS CLICKED
   // and it'll utilize the UserService's eventEmitter
+  onActivate() {
+  this.userService.activatedEmitter.emit(true);
+  }
 }
